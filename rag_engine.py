@@ -14,6 +14,7 @@ RAGEngine instance per process and reuse it.
 """
 
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
 from openai import OpenAI
@@ -24,11 +25,13 @@ from llama_index.llms.openai_like import OpenAILike
 
 load_dotenv()
 
+DEFAULT_SOURCE_FILE = Path("sample.txt")
+
 SYSTEM_PROMPT = """
 You are a production-grade RAG assistant.
 
 RULES:
-- Use the provided context to answer factual Nepal-related questions.
+- Use the provided context to answer factual questions.
 - If the context does not contain the answer, say you do not know from the knowledge base.
 - Be concise and factual.
 """
@@ -37,7 +40,7 @@ RULES:
 class RAGEngine:
     """Encapsulates embeddings, index, retriever, and the Groq chat client."""
 
-    def __init__(self) -> None:
+    def __init__(self, source_path: str | None = None) -> None:
         self.groq_api_key = os.getenv("GROQ_API_KEY") or os.getenv("XAI_API_KEY")
         self.google_api_key = os.getenv("GOOGLE_API_KEY")
 
@@ -67,18 +70,34 @@ class RAGEngine:
             is_chat_model=True,
         )
 
-        self.index = self._build_index()
+        self.source_path = Path(source_path) if source_path else None
+        self.index = self._build_index(self.source_path)
         self.retriever = self.index.as_retriever()
 
     @staticmethod
-    def _build_index() -> VectorStoreIndex:
-        documents = [
-            Document(text="Nepal is a country in South Asia."),
-            Document(text="Kathmandu is the capital of Nepal."),
-            Document(text="Mount Everest is located in Nepal."),
-            Document(text="Pokhara is a major tourist destination in Nepal."),
-            Document(text="Nepal has 7 provinces."),
-        ]
+    def _build_index(source_path: Path | None) -> VectorStoreIndex:
+        documents = []
+
+        if source_path is not None:
+            if not source_path.exists():
+                raise FileNotFoundError(f"Source file not found: {source_path}")
+            content = source_path.read_text(encoding="utf-8").strip()
+            if content:
+                documents.append(Document(text=content))
+        elif DEFAULT_SOURCE_FILE.exists():
+            content = DEFAULT_SOURCE_FILE.read_text(encoding="utf-8").strip()
+            if content:
+                documents.append(Document(text=content))
+
+        if not documents:
+            documents = [
+                Document(text="Nepal is a country in South Asia."),
+                Document(text="Kathmandu is the capital of Nepal."),
+                Document(text="Mount Everest is located in Nepal."),
+                Document(text="Pokhara is a major tourist destination in Nepal."),
+                Document(text="Nepal has 7 provinces."),
+            ]
+
         return VectorStoreIndex.from_documents(documents)
 
     def retrieve_context(self, query: str) -> str:

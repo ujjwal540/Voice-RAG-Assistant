@@ -100,7 +100,6 @@ Assistant Response:
 
 ## Future Improvements
 
-* PDF Document Support
 * Multiple Document Upload
 * FAISS Vector Database Integration
 * Streamlit Web Interface

@@ -1,100 +1,118 @@
-#Document-RAG-Assistant
+# Voice-RAG-Assistant
 
-A Retrieval-Augmented Generation (RAG) chatbot built using Python, Grok API, and Google Generative AI. The chatbot retrieves relevant information from a text document and generates accurate responses based on the document content.
+A Voice-Enabled Retrieval-Augmented Generation (RAG) Assistant built with Python, Groq, Whisper, and Google Generative AI. This project combines speech recognition, document retrieval, embeddings, large language models, and text-to-speech to create an intelligent voice-based AI assistant capable of answering questions from a custom knowledge base.
 
 ## Features
 
+* Voice Input Recording
+* Whisper Speech-to-Text (STT)
 * Retrieval-Augmented Generation (RAG)
-* Question Answering from Documents
-* Grok API Integration
-* Google Generative AI Integration
-* Environment Variable Security
-* Simple and Lightweight Implementation
-* Easy to Extend for PDFs and Multiple Documents
+* Document-Based Question Answering
+* Embedding-Based Context Retrieval
+* Groq LLM Integration
+* Google Generative AI Support
+* Text-to-Speech (TTS) Responses
+* Conversation History Management
+* Secure API Key Management with Environment Variables
+* Modular and Scalable Architecture
+
+## Architecture
+
+User Voice Input
+↓
+Whisper Speech-to-Text
+↓
+Text Embeddings
+↓
+Document Retrieval
+↓
+Relevant Context
+↓
+Groq LLM
+↓
+Generated Response
+↓
+Text-to-Speech
+↓
+Voice Output
 
 ## Project Workflow
 
-1. Load document data from a text file.
-2. Process and store document content.
-3. User enters a question.
-4. Relevant information is retrieved from the document.
-5. Retrieved context is sent to the LLM.
-6. The model generates an answer based on the document content.
+1. Capture user voice input through the microphone.
+2. Convert speech into text using Whisper.
+3. Retrieve relevant information from documents using embeddings.
+4. Pass retrieved context and user query to the LLM.
+5. Generate an accurate response using Groq.
+6. Convert the response into speech.
+7. Play the generated audio back to the user.
 
 ## Technologies Used
 
 * Python
-* Grok API
+* Groq API
+* Whisper
 * Google Generative AI
+* Text Embeddings
+* RAG (Retrieval-Augmented Generation)
+* sounddevice
+* soundfile
 * dotenv
-* RAG Architecture
 
 ## Installation
 
 Clone the repository:
 
-```bash
-git clone https://github.com/yourusername/RAG-Powered-Chatbot.git
-```
+git clone https://github.com/ujjwal540/Voice-RAG-Assistant.git
 
 Create a virtual environment:
 
-```bash
 python -m venv .venv
-```
 
-Activate environment:
+Activate the environment:
 
 Windows:
 
-```bash
 .venv\Scripts\activate
-```
 
 Install dependencies:
 
-```bash
 pip install -r requirements.txt
-```
 
 Create a .env file:
 
-```env
 GROK_API_KEY=your_key_here
+
 GOOGLE_API_KEY=your_key_here
-```
 
-Run the project:
+Run the application:
 
-```bash
-python app.py
-```
+python voice_agent.py
 
 ## Example
 
-Question:
+User Query:
 
-```text
-What is Artificial Intelligence?
-```
+"What is Artificial Intelligence?"
 
-Answer:
+Assistant Response:
 
-```text
-Artificial Intelligence is ...
-```
+"Artificial Intelligence is a branch of computer science focused on creating systems capable of learning, reasoning, and decision-making."
 
 ## Future Improvements
 
+* PDF Document Support
 * Multiple Document Upload
+* FAISS Vector Database Integration
 * Streamlit Web Interface
-* Vector Database Integration
-* Chat History Memory
-* Hybrid Search
-* Deployment on Cloud
+* Real-Time Voice Streaming
+* Multi-Language Support
+* Source Citations
+* Cloud Deployment
+* Agentic Workflows
+* Web-Based Voice Assistant
 
 ## Author
 
 Ujjwal Kumar Karn
 
-AI & Machine Learning Enthusiast
+AI & Machine Learning Enthusiast | Aspiring AI Engineer

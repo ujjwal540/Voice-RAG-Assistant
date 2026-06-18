@@ -1,114 +1,106 @@
-# Voice-RAG-Assistant
+# 🧠 Alex — Voice RAG Assistant (Nepal)
 
-A Voice-Enabled Retrieval-Augmented Generation (RAG) Assistant built with Python, Groq, Whisper, and Google Generative AI. This project combines speech recognition, document retrieval, embeddings, large language models, and text-to-speech to create an intelligent voice-based AI assistant capable of answering questions from a custom knowledge base.
+A lightweight **Retrieval-Augmented Generation (RAG) Voice Assistant** built with **FastAPI, Groq LLM, and Google Generative AI**, capable of answering questions from a local knowledge base (`sample.txt`) with optional voice interaction.
 
-## Features
+---
 
-* Voice Input Recording
-* Whisper Speech-to-Text (STT)
-* Retrieval-Augmented Generation (RAG)
-* Document-Based Question Answering
-* Embedding-Based Context Retrieval
-* Groq LLM Integration
-* Google Generative AI Support
-* Text-to-Speech (TTS) Responses
-* Conversation History Management
-* Secure API Key Management with Environment Variables
-* Modular and Scalable Architecture
+## 🚀 Features
 
-## Architecture
+- 📄 RAG-based QA over local documents (`sample.txt`)
+- ⚡ FastAPI backend (fast and scalable API server)
+- 🌐 Simple web UI (`index.html`)
+- 🎤 Voice input (Speech-to-Text) support
+- 🔊 Text-to-Speech response support
+- 🧠 Embeddings using Google Generative AI
+- 🤖 LLM responses using Groq API
+- 🐳 Docker support for deployment
+- 🔐 Secure environment-based API keys
 
-User Voice Input
+---
+
+## 🏗 System Architecture
+User
 ↓
-Whisper Speech-to-Text
+Web UI (HTML + JS)
 ↓
-Text Embeddings
+FastAPI Backend (main.py)
 ↓
-Document Retrieval
+RAG Engine (rag_engine.py)
 ↓
-Relevant Context
+Embeddings (Google GenAI)
 ↓
-Groq LLM
+LLM (Groq API)
 ↓
-Generated Response
-↓
-Text-to-Speech
-↓
-Voice Output
+Response returned to UI
 
-## Project Workflow
+---
 
-1. Capture user voice input through the microphone.
-2. Convert speech into text using Whisper.
-3. Retrieve relevant information from documents using embeddings.
-4. Pass retrieved context and user query to the LLM.
-5. Generate an accurate response using Groq.
-6. Convert the response into speech.
-7. Play the generated audio back to the user.
+## 📡 API Endpoints
 
-## Technologies Used
+- `GET /` → Load frontend UI  
+- `POST /chat` → Send question and get AI response  
 
-* Python
-* Groq API
-* Whisper
-* Google Generative AI
-* Text Embeddings
-* RAG (Retrieval-Augmented Generation)
-* sounddevice
-* soundfile
-* dotenv
+---
 
-## Installation
+## ⚙️ Installation
 
-Clone the repository:
+### 1. Clone project
+```bash
+git clone <your-repo-url>
+cd RAG_DAY_2
+## ⚙️ Installation
 
-git clone https://github.com/ujjwal540/Voice-RAG-Assistant.git
-
-Create a virtual environment:
-
+### 1. Clone project
+```bash
+git clone <your-repo-url>
+cd RAG_DAY_2
+Create virtual environment
 python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 
-Activate the environment:
-
-Windows:
-
-.venv\Scripts\activate
-
-Install dependencies:
-
+Install dependencies
 pip install -r requirements.txt
 
-Create a .env file:
+Environment Setup
 
-GROK_API_KEY=your_key_here
+Create .env file:
 
-GOOGLE_API_KEY=your_key_here
+GROQ_API_KEY=your_groq_api_key_here
+GOOGLE_API_KEY=your_google_genai_api_key_here
+DATABASE_URL=optional
 
-Run the application:
+Run Project
+uvicorn main:app --reload --port 8000
 
-python voice_agent.py
+Open in browser:
 
-## Example
+http://127.0.0.1:8000
 
-User Query:
+Docker Run
+Build image
+docker build -t alex-rag .
 
-"What is Artificial Intelligence?"
+Run container
+docker run --rm -p 8000:8000 --env-file .env alex-rag
 
-Assistant Response:
+Example
 
-"Artificial Intelligence is a branch of computer science focused on creating systems capable of learning, reasoning, and decision-making."
+User Question:
 
-## Future Improvements
+What is Artificial Intelligence?
 
-* Multiple Document Upload
-* FAISS Vector Database Integration
-* Streamlit Web Interface
-* Real-Time Voice Streaming
-* Multi-Language Support
-* Source Citations
-* Cloud Deployment
-* Agentic Workflows
-* Web-Based Voice Assistant
+AI Response:
+
+Artificial Intelligence is the simulation of human intelligence by machines...
+
+Future Improvements
+1. Multi-document upload system
+2. Vector database integration (FAISS / Pinecone)
+3. Chat history memory
+4. Cloud deployment (AWS / Render / Vercel)
+5. Analytics dashboard
+6. Hybrid search (keyword + semantic)
+
 
 ## Author
 
